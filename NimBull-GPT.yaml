@@ -1,0 +1,84 @@
+openapi: 3.1.0
+info:
+  title: NimBull GPT Proxy
+  version: 1.0.0
+  description: A GPT-ready proxy for the Bullhorn REST API with smart defaults and metadata support.
+
+servers:
+  - url: https://your-proxy-url.com
+    description: Replace this with your actual deployed Function URL
+
+paths:
+  /proxy:
+    get:
+      operationId: bullhornProxy
+      summary: Use this endpoint to query Bullhorn or fetch metadata.
+      description: >
+        Supports type=query, search, entity, meta. Defaults and pagination are automatic.
+        For usage examples and GPT-specific guidance, see externalDocs.
+      externalDocs:
+        description: Full usage guide and examples
+        url: https://github.com/nimbl-recruitment/NimBull-GPT/gpt-helper.html
+      parameters:
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [query, search, entity, meta]
+          description: What kind of operation to perform
+        - name: entity
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Bullhorn entity (e.g. Candidate, Skill, JobOrder)
+        - name: id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Used with type=entity to fetch a specific record by ID
+        - name: where
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Optional Bullhorn WHERE clause
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Full-text search query (used with type=search)
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Comma-separated list of fields to return
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Items per page (pagination is automatic)
+        - name: start
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Starting offset (usually managed automatically)
+      responses:
+        '200':
+          description: Success response from Bullhorn
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true

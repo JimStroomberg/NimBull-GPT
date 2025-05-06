@@ -1,0 +1,17 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "NimBull GPT Proxy",
+    "name_for_model": "nimbullProxy",
+    "description_for_human": "Query Bullhorn using natural language.",
+    "description_for_model": "Use this to query Bullhorn entities like Candidate, Skill, JobOrder, or fetch field metadata. Automatically handles pagination and smart defaults.",
+    "auth": {
+      "type": "api_key",
+      "authorization_type": "custom",
+      "custom_auth_header": "X-API-Key"
+    },
+    "api": {
+      "type": "openapi",
+      "url": "https://github.com/nimbl-recruitment/NimBull-GPT/NimBull-GPT.yaml",
+      "has_user_authentication": false
+    }
+  }
