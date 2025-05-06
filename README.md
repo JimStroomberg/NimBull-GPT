@@ -39,7 +39,7 @@
  ```json
  "api": {
    "type": "openapi",
-   "url": "https://github.com/nimbl-recruitment/NimBull-GPT/NimBull-GPT.yaml"
+   "url": "https://raw.githubusercontent.com/nimbl-recruitment/NimBull-GPT/refs/heads/main/NimBull-GPT.yaml"
  }
  ```
  

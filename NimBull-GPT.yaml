@@ -18,7 +18,7 @@ paths:
         For usage examples and GPT-specific guidance, see externalDocs.
       externalDocs:
         description: Full usage guide and examples
-        url: https://github.com/nimbl-recruitment/NimBull-GPT/gpt-helper.html
+        url: https://raw.githubusercontent.com/nimbl-recruitment/NimBull-GPT/refs/heads/main/gpt-helper.html
       parameters:
         - name: type
           in: query
