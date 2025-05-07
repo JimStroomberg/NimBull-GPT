@@ -27,48 +27,116 @@ paths:
             type: string
             enum: [query, search, entity, meta]
           description: What kind of operation to perform
+          example: query
         - name: entity
           in: query
           required: true
           schema:
             type: string
           description: Bullhorn entity (e.g. Candidate, Skill, JobOrder)
+          example: JobOrder
         - name: id
           in: query
           required: false
           schema:
             type: string
           description: Used with type=entity to fetch a specific record by ID
+          example: "12345"
         - name: where
           in: query
           required: false
           schema:
             type: string
           description: Optional Bullhorn WHERE clause
+          example: isOpen=true
         - name: query
           in: query
           required: false
           schema:
             type: string
           description: Full-text search query (used with type=search)
+          example: "Java Developer"
         - name: fields
           in: query
           required: false
           schema:
             type: string
           description: Comma-separated list of fields to return
+          example: id,title,owner
         - name: count
           in: query
           required: false
           schema:
             type: integer
+            minimum: 1
+            maximum: 500
           description: Items per page (pagination is automatic)
+          example: 100
         - name: start
           in: query
           required: false
           schema:
             type: integer
+            minimum: 0
           description: Starting offset (usually managed automatically)
+          example: 0
+      responses:
+        '200':
+          description: Success response from Bullhorn
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+              examples:
+                success:
+                  summary: Example response
+                  value:
+                    data:
+                      - id: 12345
+                        title: Senior Developer
+                        owner:
+                          id: 789
+                          firstName: Jane
+                          lastName: Doe
+
+    post:
+      operationId: bullhornProxyPost
+      summary: Use POST to send long or complex Bullhorn queries.
+      description: >
+        Same as GET, but recommended for large queries that might exceed URL length limits.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [query, search, entity, meta]
+                entity:
+                  type: string
+                id:
+                  type: string
+                where:
+                  type: string
+                query:
+                  type: string
+                fields:
+                  type: string
+                count:
+                  type: integer
+                  minimum: 1
+                  maximum: 500
+                start:
+                  type: integer
+                  minimum: 0
       responses:
         '200':
           description: Success response from Bullhorn
